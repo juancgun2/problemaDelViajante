@@ -46,6 +46,8 @@ public class Camino {
 	}
 	
 	public String toString () { 
+		if ( this.camino.isEmpty() ) 
+			return " No se encontro solucion ";
 		return " km total: " + this.distancia + " Camino: " + this.camino.toString();
 	}
 	
