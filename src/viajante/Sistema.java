@@ -3,8 +3,6 @@ package viajante;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import iterator.IteradorVertice;
-
 public class Sistema {
 	private Grafo grafo;
 	private Camino solucion;
@@ -107,9 +105,15 @@ public class Sistema {
 					return this.solucion;
 				}	
 			}
-			Arco arco = this.grafo.obtenerArco ( this.solucion.getLastInsert(), origen.getId() ) ;
-			int distancia = (int) arco.getEtiqueta();
-			this.solucion.sumarDistancia( distancia );
+			if ( !this.solucion.isEmpty() ) {
+				int ultimaCiudad = this.solucion.getLastInsert();
+				if ( this.grafo.existeArco(ultimaCiudad, origen.getId() )) {
+					Arco arco = this.grafo.obtenerArco ( this.solucion.getLastInsert(), origen.getId() ) ;
+					int distancia = (int) arco.getEtiqueta();
+					this.solucion.sumarDistancia( distancia );
+				} else  
+					this.solucion.clear();
+			}
 		}
 		return this.solucion;
 	}
@@ -132,7 +136,7 @@ public class Sistema {
 		return idCity;
 	} 
 	
-	/*
+	/**
 	 * Verifica que el grafo sea conexo, en caso de ser true no se podra encontrar ninguna solucion
 	 */
 	private boolean grafoConexo () { 
