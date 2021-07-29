@@ -1,0 +1,53 @@
+{
+    "ciudades": 
+    [
+        {
+            "id": 5,
+            "nombre": "Rauch",
+            "adyacentes": [
+                {   "id": 10,
+                    "distancia": 60  },
+                {   "id": 15,
+                    "distancia": 5 },
+                {   "id": 20, 
+                    "distancia": 10 }
+            ]
+        },
+        {
+            "id": 10,
+            "nombre": "Pehuajo",
+            "adyacentes": [
+                {   "id": 5,
+                    "distancia": 60  },
+                {   "id": 15,
+                    "distancia": 1 }, 
+                {   "id": 20, 
+                    "distancia": 70 }
+            ]
+        }, 
+        {
+            "id": 15,
+            "nombre": "Ayacucho",
+            "adyacentes": [
+                {   "id": 5,
+                    "distancia": 5  },
+                {   "id": 10,
+                    "distancia": 1 },
+                {   "id": 20,
+                    "distancia": 2 }
+            ] 
+        },
+        {
+            "id": 20,
+            "nombre": "Tandil",
+            "adyacentes": [
+            {   "id": 5,
+                "distancia": 10  },
+            {   "id": 10,
+                "distancia": 70 },
+            {   "id": 15,
+                "distancia": 2 }
+            ] 
+        }
+    ]
+}

@@ -4,25 +4,33 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class Sistema {
-	private Grafo grafo;
+	private Grafo<Integer> grafo;
 	private Camino solucion;
 	private HashMap< Integer, Ciudad > ciudades; 
 	private HashMap< Integer, Ciudad > visitados; 
 	
-	public Sistema (Grafo g, HashMap<Integer,Ciudad> ciudad) { 
+	public Sistema (Grafo<Integer> g, HashMap<Integer,Ciudad> ciudad) { 
 		this.grafo = g; 
 		this.ciudades = ciudad;
 		this.solucion = new Camino ( this.ciudades.size() );
-		this.visitados = new HashMap( this.ciudades.size() ); 
+		this.visitados = new HashMap<>( this.ciudades.size() ); 
 	}
-	/*
+	
 	public Sistema () { 
-		this.ciudades = new HashMap(); 
-		this.visitados = new HashMap();
+		this.ciudades = new HashMap<>(); 
+		this.visitados = new HashMap<>();
 		this.solucion = new Camino ();
-	}*/
+		this.grafo = new GrafoNoDirigido<>();
+	} 
+	
+	public Ciudad getCiudad ( int id ) { 
+		if ( this.ciudades.containsKey( id ) ) { 
+			return this.ciudades.get( id );
+		}
+		return null;
+	}
 
-	/* 
+	/** 
 	 * Se debe agregar una ciudad con este metodo para mantener el sistema sincronizado
 	 */
 	public void addCiudad ( Ciudad c ) {
@@ -32,24 +40,37 @@ public class Sistema {
 		}
 	}
 	
-	/* 
+	/** 
 	 * Se debe eliminar una ciudad con este metodo para mantener el sistema sincronizado
 	 */
 	public void removeCiudad ( Ciudad c ) {
 		this.ciudades.remove( c.getId() ); 
 		this.grafo.borrarVertice( c.getId() );
-	} 
+	}
+	
+	public void agregarArco ( int origen, int destino, int distancia) { 
+		if ( ! this.grafo.existeArco( origen, destino ) ) 
+			this.grafo.agregarArco(origen, destino, distancia);
+	}
+	
+	public void eliminarArco ( int origen, int destino ) { 
+		if ( this.grafo.existeArco( origen, destino ) ) { 
+			this.grafo.borrarArco( origen, destino);
+		}
+	}
 	
 	public Camino backTracking ( Ciudad origen ) { 
 		this.visitados.clear();
 		this.solucion.clear();
-		if ( this.grafoConexo() ) {
-			this.solucion.clear();
-			this.visitados.clear();
-			Camino solParcial = new Camino( this.ciudades.size() );
-			solParcial.addCiudad( origen );
-			this.visitados.put( origen.getId(), origen );
-			backTracking ( origen.getId(), origen, solParcial);
+		if ( this.ciudades.containsKey( origen.getId() ) ) {
+			if ( this.grafoConexo() ) {
+				this.solucion.clear();
+				this.visitados.clear();
+				Camino solParcial = new Camino( this.ciudades.size() );
+				solParcial.addCiudad( origen );
+				this.visitados.put( origen.getId(), origen );
+				backTracking ( origen.getId(), origen, solParcial);
+			}
 		}
 		return this.solucion;
 	}
@@ -88,31 +109,33 @@ public class Sistema {
 	
 	public Camino greedy ( Ciudad origen ) { 
 		this.solucion.clear();
-		if ( this.grafoConexo() ) {
-			this.visitados.clear();
-			this.solucion.addCiudad( origen );
-			this.visitados.put( origen.getId(), origen );
-			
-			while ( this.solucion.size() < this.ciudades.size() ) {
-				int ciudad = this.ciudadMasCercana ( this.solucion.getLastInsert() );
-				if ( ciudad != Integer.MIN_VALUE ) {
-					Arco arco = this.grafo.obtenerArco( this.solucion.getLastInsert(), ciudad);
-					this.solucion.sumarDistancia( ( int ) arco.getEtiqueta());
-					this.solucion.addCiudad( this.ciudades.get( ciudad ));
-					this.visitados.put( ciudad , this.ciudades.get( ciudad ));
-				} else { 
-					this.solucion.clear();
-					return this.solucion;
-				}	
-			}
-			if ( !this.solucion.isEmpty() ) {
-				int ultimaCiudad = this.solucion.getLastInsert();
-				if ( this.grafo.existeArco(ultimaCiudad, origen.getId() )) {
-					Arco arco = this.grafo.obtenerArco ( this.solucion.getLastInsert(), origen.getId() ) ;
-					int distancia = (int) arco.getEtiqueta();
-					this.solucion.sumarDistancia( distancia );
-				} else  
-					this.solucion.clear();
+		if ( this.ciudades.containsKey( origen.getId() ) ) {
+			if ( this.grafoConexo() ) {
+				this.visitados.clear();
+				this.solucion.addCiudad( origen );
+				this.visitados.put( origen.getId(), origen );
+				
+				while ( this.solucion.size() < this.ciudades.size() ) {
+					int ciudad = this.ciudadMasCercana ( this.solucion.getLastInsert() );
+					if ( ciudad != Integer.MIN_VALUE ) {
+						Arco arco = this.grafo.obtenerArco( this.solucion.getLastInsert(), ciudad);
+						this.solucion.sumarDistancia( ( int ) arco.getEtiqueta());
+						this.solucion.addCiudad( this.ciudades.get( ciudad ));
+						this.visitados.put( ciudad , this.ciudades.get( ciudad ));
+					} else { 
+						this.solucion.clear();
+						return this.solucion;
+					}	
+				}
+				if ( !this.solucion.isEmpty() ) {
+					int ultimaCiudad = this.solucion.getLastInsert();
+					if ( this.grafo.existeArco(ultimaCiudad, origen.getId() )) {
+						Arco arco = this.grafo.obtenerArco ( this.solucion.getLastInsert(), origen.getId() ) ;
+						int distancia = (int) arco.getEtiqueta();
+						this.solucion.sumarDistancia( distancia );
+					} else  
+						this.solucion.clear();
+				}
 			}
 		}
 		return this.solucion;
@@ -162,6 +185,7 @@ public class Sistema {
 			if ( !this.visitados.containsKey( siguiente ))
 				dfs ( siguiente );
 		}
-	} 
+	}
+
 	
 }

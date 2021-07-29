@@ -24,6 +24,11 @@ public class Camino {
 		this.distancia = 0;
 	}
 	
+	public Camino () { 
+		this.camino = new LinkedHashMap <Integer, Ciudad>(); 
+		this.distancia = 0;
+	}
+	
 	public int getDistancia () { 
 		if ( this.isEmpty() )
 			return Integer.MAX_VALUE;
