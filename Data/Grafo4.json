@@ -1,0 +1,114 @@
+{
+    "ciudades": 
+    [
+        {
+            "id": 5,
+            "nombre": "Rauch",
+            "adyacentes": [
+                {   "id": 10,
+                    "distancia": 15  },
+                {   "id": 20,
+                    "distancia": 8 },
+                {   "id": 25, 
+                    "distancia": 12 },
+                {   "id":40, 
+                    "distancia": 1}
+            ]
+        },
+        {
+            "id": 10,
+            "nombre": "Pehuajo",
+            "adyacentes": [
+                {   "id": 5,
+                    "distancia": 15  },
+                {   "id": 30,
+                    "distancia": 7 },
+                {   "id": 40, 
+                    "distancia": 101 }
+            ]
+        }, 
+        {
+            "id": 15,
+            "nombre": "Ayacucho",
+            "adyacentes": [
+                {   "id": 20,
+                    "distancia": 9  },
+                {   "id": 25,
+                    "distancia": 6 },
+                {   "id": 30, 
+                    "distancia": 4 },
+                {   "id": 35,
+                    "distancia": 3 }
+            ] 
+        },
+        {
+            "id": 20,
+            "nombre": "Tandil",
+            "adyacentes": [
+            {   "id": 5,
+                "distancia": 8  },
+            {   "id": 15,
+                "distancia": 9 },
+            {   "id": 25,
+                "distancia": 90 }, 
+            {   "id": 40, 
+                "distancia": 5 },
+            {   "id": 10, 
+                "distancia":10000}
+            ] 
+        }, 
+        {
+            "id": 25,
+            "nombre": "Balcarce",
+            "adyacentes": [
+            {   "id": 5,
+                "distancia": 12  },
+            {   "id": 15,
+                "distancia": 6 },
+            {   "id": 20,
+                "distancia": 90 }, 
+            {   "id": 35, 
+                "distancia": 35 }
+            ] 
+        },
+        {
+            "id": 30,
+            "nombre": "Azul",
+            "adyacentes": [
+            {   "id": 10,
+                "distancia": 7  },
+            {   "id": 15, 
+                "distancia": 4 },
+            {   "id": 35,
+                "distancia": 4 }, 
+            {   "id": 40, 
+                "distancia": 2 }
+            ]
+        },
+        {
+            "id": 35,
+            "nombre": "Juarez",
+            "adyacentes": [
+            {   "id": 15,
+                "distancia": 3  },
+            {   "id": 25,
+                "distancia": 35 },
+            {   "id": 30,
+                "distancia": 4 }
+            ] 
+        }, 
+        {   "id": 40, 
+            "nombre": "Mardel", 
+            "adyacentes": [ 
+            {   "id": 5, 
+                "distancia": 1 }, 
+            {   "id": 10, 
+                "distancia": 101 },
+            {   "id": 20, 
+                "distancia": 5 }, 
+            {   "id": 30, 
+                "distancia": 2 }
+            ]
+        }
+    ]
+}

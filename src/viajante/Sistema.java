@@ -8,6 +8,7 @@ public class Sistema {
 	private Camino solucion;
 	private HashMap< Integer, Ciudad > ciudades; 
 	private HashMap< Integer, Ciudad > visitados; 
+	private int iteraciones;
 	
 	public Sistema (Grafo<Integer> g, HashMap<Integer,Ciudad> ciudad) { 
 		this.grafo = g; 
@@ -21,6 +22,7 @@ public class Sistema {
 		this.visitados = new HashMap<>();
 		this.solucion = new Camino ();
 		this.grafo = new GrafoNoDirigido<>();
+		this.iteraciones = 0;
 	} 
 	
 	public Ciudad getCiudad ( int id ) { 
@@ -60,6 +62,7 @@ public class Sistema {
 	}
 	
 	public Camino backTracking ( Ciudad origen ) { 
+		this.iteraciones = 0;
 		this.visitados.clear();
 		this.solucion.clear();
 		if ( this.ciudades.containsKey( origen.getId() ) ) {
@@ -77,6 +80,7 @@ public class Sistema {
 	
 	private void backTracking ( int vertice, Ciudad origen, Camino solParcial ) { 
 		if ( this.ciudades.size() == solParcial.size() ) { 
+			this.iteraciones++;
 			if ( this.grafo.existeArco(vertice, origen.getId() )) {
 				Arco arco = this.grafo.obtenerArco( vertice, origen.getId() );
 				int distanciaUltima = (int) arco.getEtiqueta();
@@ -96,9 +100,10 @@ public class Sistema {
 					solParcial.sumarDistancia( distancia );
 					this.visitados.put( siguiente, this.ciudades.get( siguiente ) );
 					
-					if ( solParcial.getDistancia() < this.solucion.getDistancia() )
+					if ( solParcial.getDistancia() < this.solucion.getDistancia() ) {
 						backTracking ( siguiente, origen, solParcial ); 
-					
+						this.iteraciones++;
+					}
 					solParcial.remove ( siguiente ); 
 					solParcial.restarDistancia( distancia );
 					this.visitados.remove( siguiente ); 
@@ -185,6 +190,10 @@ public class Sistema {
 			if ( !this.visitados.containsKey( siguiente ))
 				dfs ( siguiente );
 		}
+	}
+	
+	public int getIteracion() { 
+		return this.iteraciones;
 	}
 
 	

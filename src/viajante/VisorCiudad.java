@@ -17,7 +17,8 @@ public class VisorCiudad {
 		Sistema sistema = new Sistema();
 		// "Data/Grafo1.json"
 		// "Data/Grafo2.json"
-		String Path = "Data/Grafo2.json";
+		// "Data/Grafo3.json"
+		String Path = "Data/Grafo4.json";
         cargarDatos( Path, sistema );
         System.out.println( " BackTracking");
         				int startBack = (int)System.nanoTime();        				
@@ -25,15 +26,15 @@ public class VisorCiudad {
         
 				        int endBack = (int)System.nanoTime();
 				        int elapsedTimeBack = endBack - startBack;
-				        System.out.println( "tiempo backtracking Instant: " + elapsedTimeBack );
-				        
+				        System.out.println( " Tiempo backtracking: " + elapsedTimeBack );
+        System.out.println( "\n");
         System.out.println( " Greedy ");       
         				int startGreedy= (int)System.nanoTime();      				
         System.out.println( sistema.greedy( new Ciudad ( 5,"Nombre" ) ) );
         
 		        		int endGreedy= (int)System.nanoTime();
 		        		int elapsedTimeGreedy = endGreedy- startGreedy;
-		        		System.out.println( "tiempo greedy: " + elapsedTimeGreedy );
+		        		System.out.println( " Tiempo greedy: " + elapsedTimeGreedy );
 	}
 	
 	
