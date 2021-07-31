@@ -10,13 +10,6 @@ public class Sistema {
 	private HashMap< Integer, Ciudad > visitados; 
 	private int iteraciones;
 	
-	public Sistema (Grafo<Integer> g, HashMap<Integer,Ciudad> ciudad) { 
-		this.grafo = g; 
-		this.ciudades = ciudad;
-		this.solucion = new Camino ( this.ciudades.size() );
-		this.visitados = new HashMap<>( this.ciudades.size() ); 
-	}
-	
 	public Sistema () { 
 		this.ciudades = new HashMap<>(); 
 		this.visitados = new HashMap<>();
@@ -24,13 +17,6 @@ public class Sistema {
 		this.grafo = new GrafoNoDirigido<>();
 		this.iteraciones = 0;
 	} 
-	
-	public Ciudad getCiudad ( int id ) { 
-		if ( this.ciudades.containsKey( id ) ) { 
-			return this.ciudades.get( id );
-		}
-		return null;
-	}
 
 	/** 
 	 * Se debe agregar una ciudad con este metodo para mantener el sistema sincronizado
